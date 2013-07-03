@@ -16,7 +16,7 @@ if(empty($max_exec_time))
 
 session_start();
 chdir('../..');
-include('api/Verso.php');
+include('plugin/Verso.php');
 $verso = new Verso();
 
 if($verso->request->get('type') == 'sale' && $verso->request->get('mode') == 'checkauth')
