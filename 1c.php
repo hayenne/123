@@ -16,7 +16,7 @@ if(empty($max_exec_time))
 
 session_start();
 chdir('../..');
-include('plugin/Verso.php');
+include('api/Verso.php');
 $verso = new Verso();
 
 if($verso->request->get('type') == 'sale' && $verso->request->get('mode') == 'checkauth')
@@ -568,7 +568,7 @@ function import_product($xml_product)
 		$description = '';
 		if(!empty($xml_product->Описание))
 			$description = $xml_product->Описание;
-		$product_id = $verso->products->add_product(array('external_id'=>$product_1c_id, 'url'=>translit($xml_product->Наименование), 'name'=>$xml_product->Наименование, 'meta_title'=>$xml_product->Наименование, 'meta_keywords'=>$xml_product->Наименование, 'meta_description'=>$xml_product->$description,  'annotation'=>$description, 'body'=>$description));
+		$product_id = $verso->products->add_product(array('external_id'=>$product_1c_id, 'url'=>translit($xml_product->Наименование.'-art'.$xml_product->Артикул), 'name'=>$xml_product->Наименование, 'meta_title'=>$xml_product->Наименование, 'meta_keywords'=>$xml_product->Наименование, 'meta_description'=>$xml_product->$description,  'annotation'=>$description, 'body'=>$description));
 		
 		// Добавляем товар в категории
 		if(isset($category_id))
@@ -610,7 +610,7 @@ function import_product($xml_product)
 			$description = '';
 			if(!empty($xml_product->Описание))
 				$description = $xml_product->Описание;
-			$product_id = $verso->products->update_product($product_id, array('external_id'=>$product_1c_id, 'url'=>translit($xml_product->Наименование), 'name'=>$xml_product->Наименование, 'meta_title'=>$xml_product->Наименование, 'meta_keywords'=>$xml_product->Наименование, 'meta_description'=>$xml_product->$description,  'annotation'=>$description, 'body'=>$description));
+			$product_id = $verso->products->update_product($product_id, array('external_id'=>$product_1c_id, 'url'=>translit($xml_product->Наименование.'-art'.$xml_product->Артикул), 'name'=>$xml_product->Наименование, 'meta_title'=>$xml_product->Наименование, 'meta_keywords'=>$xml_product->Наименование, 'meta_description'=>$xml_product->$description,  'annotation'=>$description, 'body'=>$description));
 			
 			// Обновляем категорию товара
 			if(isset($category_id) && !empty($product_id))
